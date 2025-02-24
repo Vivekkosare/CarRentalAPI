@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CarRentalAPI.Migrations
 {
     [DbContext(typeof(CarDbContext))]
-    [Migration("20250223004924_InitialCreate")]
+    [Migration("20250224011609_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -42,8 +42,9 @@ namespace CarRentalAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -58,7 +59,7 @@ namespace CarRentalAPI.Migrations
                             CategoryId = new Guid("5f6c717c-0f81-43dd-82a1-0fc6543e1607"),
                             CurrentMeterReading = "12345",
                             RegistrationNumber = "ABC 15",
-                            Status = 0
+                            Status = "Available"
                         },
                         new
                         {
@@ -66,7 +67,7 @@ namespace CarRentalAPI.Migrations
                             CategoryId = new Guid("6c8bfba9-99b4-4000-a54d-a52930a4aa7a"),
                             CurrentMeterReading = "34234",
                             RegistrationNumber = "DEF 23",
-                            Status = 0
+                            Status = "Available"
                         },
                         new
                         {
@@ -74,7 +75,7 @@ namespace CarRentalAPI.Migrations
                             CategoryId = new Guid("9c614176-ad05-42f5-8b92-60465d1459f1"),
                             CurrentMeterReading = "76967",
                             RegistrationNumber = "HGU 45",
-                            Status = 0
+                            Status = "Available"
                         },
                         new
                         {
@@ -82,7 +83,7 @@ namespace CarRentalAPI.Migrations
                             CategoryId = new Guid("07e34f61-e90c-47d3-b90c-a94607270864"),
                             CurrentMeterReading = "64545",
                             RegistrationNumber = "OEP 25",
-                            Status = 0
+                            Status = "Available"
                         },
                         new
                         {
@@ -90,7 +91,7 @@ namespace CarRentalAPI.Migrations
                             CategoryId = new Guid("6c8bfba9-99b4-4000-a54d-a52930a4aa7a"),
                             CurrentMeterReading = "23134",
                             RegistrationNumber = "SUE 09",
-                            Status = 1
+                            Status = "Booked"
                         },
                         new
                         {
@@ -98,7 +99,7 @@ namespace CarRentalAPI.Migrations
                             CategoryId = new Guid("9c614176-ad05-42f5-8b92-60465d1459f1"),
                             CurrentMeterReading = "28413",
                             RegistrationNumber = "LOE /(",
-                            Status = 1
+                            Status = "Booked"
                         });
                 });
 

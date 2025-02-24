@@ -9,7 +9,7 @@ namespace CarRentalAPI.Features.Booking.AggregateRoots
         public Guid Id { get; set; }
         public Guid CategoryId { get; set; }
         public string RegistrationNumber { get; set; }
-        public BookingStatus Status { get; set; }
+        public string Status { get; set; }
         public string CurrentMeterReading { get; set; }
         public CarCategory Category { get; set; }
 

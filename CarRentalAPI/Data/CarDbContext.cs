@@ -69,7 +69,7 @@ namespace CarRentalAPI.Data
                     CategoryId = categories.First(c => c.Category.Equals("Small", StringComparison.OrdinalIgnoreCase)).Id,
                     RegistrationNumber = "ABC 15",
                     CurrentMeterReading = "12345",
-                    Status = BookingStatus.Available
+                    Status = BookingStatus.Available.ToString()
                 },
                 new Car
                 {
@@ -77,7 +77,7 @@ namespace CarRentalAPI.Data
                     CategoryId = categories.First(c => c.Category.Equals("Medium", StringComparison.OrdinalIgnoreCase)).Id,
                     RegistrationNumber = "DEF 23",
                     CurrentMeterReading = "34234",
-                    Status = BookingStatus.Available
+                    Status = BookingStatus.Available.ToString()
                 },
                 new Car
                 {
@@ -85,7 +85,7 @@ namespace CarRentalAPI.Data
                     CategoryId = categories.First(c => c.Category.Equals("SUV", StringComparison.OrdinalIgnoreCase)).Id,
                     RegistrationNumber = "HGU 45",
                     CurrentMeterReading = "76967",
-                    Status = BookingStatus.Available
+                    Status = BookingStatus.Available.ToString()
                 },
                 new Car
                 {
@@ -93,7 +93,7 @@ namespace CarRentalAPI.Data
                     CategoryId = categories.First(c => c.Category.Equals("Minivan", StringComparison.OrdinalIgnoreCase)).Id,
                     RegistrationNumber = "OEP 25",
                     CurrentMeterReading = "64545",
-                    Status = BookingStatus.Available
+                    Status = BookingStatus.Available.ToString()
                 },
                 new Car
                 {
@@ -101,7 +101,7 @@ namespace CarRentalAPI.Data
                     CategoryId = categories.First(c => c.Category.Equals("Medium", StringComparison.OrdinalIgnoreCase)).Id,
                     RegistrationNumber = "SUE 09",
                     CurrentMeterReading = "23134",
-                    Status = BookingStatus.Booked
+                    Status = BookingStatus.Booked.ToString()
                 },
                 new Car
                 {
@@ -109,7 +109,7 @@ namespace CarRentalAPI.Data
                     CategoryId = categories.First(c => c.Category.Equals("SUV", StringComparison.OrdinalIgnoreCase)).Id,
                     RegistrationNumber = "LOE /(",
                     CurrentMeterReading = "28413",
-                    Status = BookingStatus.Booked
+                    Status = BookingStatus.Booked.ToString()
                 }
             };
             #endregion

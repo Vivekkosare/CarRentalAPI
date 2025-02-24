@@ -1,6 +1,19 @@
 @CarRentalAPI_HostAddress = http://localhost:5239
+@id=e36010dd-a6b9-463d-8674-aafb4f1a4a06
+@CustomerId=0941b04f-e282-40ca-9435-cd10a1a78b4f
+@CarId=a4e0cd0a-c5d9-4f8a-98e1-fc7d0c7d4c6d
+@BookingDate=2025-02-23T10:00:00Z
 
-GET {{CarRentalAPI_HostAddress}}/weatherforecast/
+GET {{CarRentalAPI_HostAddress}}/booking/{{id}}
 Accept: application/json
+###
 
+POST {{CarRentalAPI_HostAddress}}/booking
+Content-type: application/json
+
+{
+    "CustomerId" : "{{CustomerId}}",
+    "CarId":"{{CarId}}",
+    "BookingDate" : "{{BookingDate}}"
+}
 ###

@@ -4,6 +4,8 @@
     {
         Available,
         Booked,
-        Cancelled
+        Cancelled,
+        PickedUp,
+        Returned
     }
 }

@@ -48,7 +48,7 @@ namespace CarRentalAPI.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
                     RegistrationNumber = table.Column<string>(type: "text", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false),
                     CurrentMeterReading = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -117,12 +117,12 @@ namespace CarRentalAPI.Migrations
                 columns: new[] { "Id", "CategoryId", "CurrentMeterReading", "RegistrationNumber", "Status" },
                 values: new object[,]
                 {
-                    { new Guid("40092e3e-625e-4262-8568-7c6fde1bb8f8"), new Guid("5f6c717c-0f81-43dd-82a1-0fc6543e1607"), "12345", "ABC 15", 0 },
-                    { new Guid("502c070e-5245-4be8-b3af-18c0ce29298b"), new Guid("9c614176-ad05-42f5-8b92-60465d1459f1"), "76967", "HGU 45", 0 },
-                    { new Guid("8a2637ae-41dd-4625-b347-bbb4ca85546c"), new Guid("9c614176-ad05-42f5-8b92-60465d1459f1"), "28413", "LOE /(", 1 },
-                    { new Guid("a4e0cd0a-c5d9-4f8a-98e1-fc7d0c7d4c6d"), new Guid("6c8bfba9-99b4-4000-a54d-a52930a4aa7a"), "34234", "DEF 23", 0 },
-                    { new Guid("ee56398f-38b7-4fce-9eb3-df84ba879f76"), new Guid("6c8bfba9-99b4-4000-a54d-a52930a4aa7a"), "23134", "SUE 09", 1 },
-                    { new Guid("fb526a44-f175-4534-9091-2392e0420094"), new Guid("07e34f61-e90c-47d3-b90c-a94607270864"), "64545", "OEP 25", 0 }
+                    { new Guid("40092e3e-625e-4262-8568-7c6fde1bb8f8"), new Guid("5f6c717c-0f81-43dd-82a1-0fc6543e1607"), "12345", "ABC 15", "Available" },
+                    { new Guid("502c070e-5245-4be8-b3af-18c0ce29298b"), new Guid("9c614176-ad05-42f5-8b92-60465d1459f1"), "76967", "HGU 45", "Available" },
+                    { new Guid("8a2637ae-41dd-4625-b347-bbb4ca85546c"), new Guid("9c614176-ad05-42f5-8b92-60465d1459f1"), "28413", "LOE /(", "Booked" },
+                    { new Guid("a4e0cd0a-c5d9-4f8a-98e1-fc7d0c7d4c6d"), new Guid("6c8bfba9-99b4-4000-a54d-a52930a4aa7a"), "34234", "DEF 23", "Available" },
+                    { new Guid("ee56398f-38b7-4fce-9eb3-df84ba879f76"), new Guid("6c8bfba9-99b4-4000-a54d-a52930a4aa7a"), "23134", "SUE 09", "Booked" },
+                    { new Guid("fb526a44-f175-4534-9091-2392e0420094"), new Guid("07e34f61-e90c-47d3-b90c-a94607270864"), "64545", "OEP 25", "Available" }
                 });
 
             migrationBuilder.CreateIndex(

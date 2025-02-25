@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CarRentalAPI.Migrations
 {
     [DbContext(typeof(CarDbContext))]
-    [Migration("20250224011609_InitialCreate")]
+    [Migration("20250225063909_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,7 +34,12 @@ namespace CarRentalAPI.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("CurrentMeterReading")
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("TIMEZONE('UTC', NOW())");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -45,6 +50,9 @@ namespace CarRentalAPI.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -57,7 +65,8 @@ namespace CarRentalAPI.Migrations
                         {
                             Id = new Guid("40092e3e-625e-4262-8568-7c6fde1bb8f8"),
                             CategoryId = new Guid("5f6c717c-0f81-43dd-82a1-0fc6543e1607"),
-                            CurrentMeterReading = "12345",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Toyota Yaris - ABC 15",
                             RegistrationNumber = "ABC 15",
                             Status = "Available"
                         },
@@ -65,7 +74,8 @@ namespace CarRentalAPI.Migrations
                         {
                             Id = new Guid("a4e0cd0a-c5d9-4f8a-98e1-fc7d0c7d4c6d"),
                             CategoryId = new Guid("6c8bfba9-99b4-4000-a54d-a52930a4aa7a"),
-                            CurrentMeterReading = "34234",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Honda Civic - DEF 23",
                             RegistrationNumber = "DEF 23",
                             Status = "Available"
                         },
@@ -73,7 +83,8 @@ namespace CarRentalAPI.Migrations
                         {
                             Id = new Guid("502c070e-5245-4be8-b3af-18c0ce29298b"),
                             CategoryId = new Guid("9c614176-ad05-42f5-8b92-60465d1459f1"),
-                            CurrentMeterReading = "76967",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Ford Explorer - HGU 45",
                             RegistrationNumber = "HGU 45",
                             Status = "Available"
                         },
@@ -81,7 +92,8 @@ namespace CarRentalAPI.Migrations
                         {
                             Id = new Guid("fb526a44-f175-4534-9091-2392e0420094"),
                             CategoryId = new Guid("07e34f61-e90c-47d3-b90c-a94607270864"),
-                            CurrentMeterReading = "64545",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Chrysler Pacifica - OEP 25",
                             RegistrationNumber = "OEP 25",
                             Status = "Available"
                         },
@@ -89,7 +101,8 @@ namespace CarRentalAPI.Migrations
                         {
                             Id = new Guid("ee56398f-38b7-4fce-9eb3-df84ba879f76"),
                             CategoryId = new Guid("6c8bfba9-99b4-4000-a54d-a52930a4aa7a"),
-                            CurrentMeterReading = "23134",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Hyundai Elantra - SUE 09",
                             RegistrationNumber = "SUE 09",
                             Status = "Booked"
                         },
@@ -97,8 +110,9 @@ namespace CarRentalAPI.Migrations
                         {
                             Id = new Guid("8a2637ae-41dd-4625-b347-bbb4ca85546c"),
                             CategoryId = new Guid("9c614176-ad05-42f5-8b92-60465d1459f1"),
-                            CurrentMeterReading = "28413",
-                            RegistrationNumber = "LOE /(",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Jeep Grand Cherokee - LOE 25",
+                            RegistrationNumber = "LOE 25",
                             Status = "Booked"
                         });
                 });
@@ -115,13 +129,15 @@ namespace CarRentalAPI.Migrations
                     b.Property<Guid>("CarId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("TIMEZONE('UTC', NOW())");
+
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("PickUpDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("ReturnDate")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("BookingId");
@@ -138,6 +154,11 @@ namespace CarRentalAPI.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("TIMEZONE('UTC', NOW())");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -159,6 +180,9 @@ namespace CarRentalAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
@@ -167,6 +191,7 @@ namespace CarRentalAPI.Migrations
                         new
                         {
                             Id = new Guid("0941b04f-e282-40ca-9435-cd10a1a78b4f"),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.doe@example.com",
                             FirstName = "John",
                             LastName = "Doe",
@@ -176,6 +201,7 @@ namespace CarRentalAPI.Migrations
                         new
                         {
                             Id = new Guid("59466a50-6844-41d4-b0d2-05ec732a8afa"),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
                             FirstName = "Jane",
                             LastName = "Smith",
@@ -185,6 +211,7 @@ namespace CarRentalAPI.Migrations
                         new
                         {
                             Id = new Guid("683f140f-9811-4292-97c7-5cd063df6b1b"),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emma.johnson@example.com",
                             FirstName = "Emma",
                             LastName = "Johnson",
@@ -233,6 +260,40 @@ namespace CarRentalAPI.Migrations
                             Id = new Guid("07e34f61-e90c-47d3-b90c-a94607270864"),
                             Category = "Minivan"
                         });
+                });
+
+            modelBuilder.Entity("CarRentalAPI.Features.PickUpReturnRegistration.AggregateRoots.RegisterPickUpReturn", b =>
+                {
+                    b.Property<Guid>("RegistrationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("TIMEZONE('UTC', NOW())");
+
+                    b.Property<DateTime>("PickUp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("PickUpMeterReading")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Return")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ReturnMeterReading")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("RegistrationId");
+
+                    b.ToTable("RegisterPickUpReturns");
                 });
 
             modelBuilder.Entity("CarRentalAPI.Features.Booking.AggregateRoots.Car", b =>

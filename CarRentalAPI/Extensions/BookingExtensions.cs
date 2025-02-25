@@ -10,8 +10,8 @@ namespace CarRentalAPI.Extensions
             existingBooking.CarId = updatedBooking.CarId;
             existingBooking.Car = updatedBooking.Car;
             existingBooking.BookingDate = updatedBooking.BookingDate;
-            existingBooking.PickUpDate = updatedBooking.PickUpDate ?? updatedBooking.PickUpDate;
-            existingBooking.ReturnDate = updatedBooking.ReturnDate ?? updatedBooking.ReturnDate;
+            //existingBooking.PickUpDate = updatedBooking.PickUpDate ?? updatedBooking.PickUpDate;
+            //existingBooking.ReturnDate = updatedBooking.ReturnDate ?? updatedBooking.ReturnDate;
             return existingBooking;
         }
     }

@@ -2,11 +2,11 @@
 using CarRentalAPI.Features.Booking.Services;
 using CarRentalAPI.Features.Booking.ValueObjects;
 
-namespace CarRentalAPI.Extensions
+namespace CarRentalAPI.Features.Booking.Extensions
 {
-    public static class RegisterEndpoints
+    public static class BookingEndpoints
     {
-        public static IEndpointRouteBuilder RouteRegistrationEndpoints(this IEndpointRouteBuilder builder)
+        public static IEndpointRouteBuilder RouteBookingEndpoints(this IEndpointRouteBuilder builder)
         {
             builder.MapPost("/booking/", async (IBookingService bookingService, BookingRequest request) =>
             {

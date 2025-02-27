@@ -1,7 +1,6 @@
-﻿using CarRentalAPI.Features.Booking.ValueObjects;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace CarRentalAPI.Features.Booking.AggregateRoots
+namespace CarRentalAPI.Shared.Entities
 {
     public class Car
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CarRentalAPI.Features.Booking.ValueObjects
+namespace CarRentalAPI.Shared.Entities
 {
     public record CarCategory
     {

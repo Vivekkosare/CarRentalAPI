@@ -1,6 +1,7 @@
 ﻿using CarRentalAPI.Features.Booking.AggregateRoots;
 using CarRentalAPI.Features.Booking.ValueObjects;
 using CarRentalAPI.Features.PickUpReturnRegistration.AggregateRoots;
+using CarRentalAPI.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRentalAPI.Data
@@ -143,6 +144,7 @@ namespace CarRentalAPI.Data
             #endregion
             modelBuilder.Entity<Car>()
                 .HasData(cars);
+            
 
             #region SEED CUSTOMER DATA
             var customers = new List<Customer>

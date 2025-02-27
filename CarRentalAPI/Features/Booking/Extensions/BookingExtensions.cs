@@ -1,7 +1,7 @@
 ﻿using CarRentalAPI.Features.Booking.AggregateRoots;
 using System.Runtime.CompilerServices;
 
-namespace CarRentalAPI.Extensions
+namespace CarRentalAPI.Features.Booking.Extensions
 {
     public static class BookingExtensions
     {

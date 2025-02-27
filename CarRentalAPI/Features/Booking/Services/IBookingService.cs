@@ -1,5 +1,6 @@
 ﻿using CarRentalAPI.Features.Booking.AggregateRoots;
 using CarRentalAPI.Features.Booking.ValueObjects;
+using CarRentalAPI.Shared.ValueObjects;
 
 namespace CarRentalAPI.Features.Booking.Services
 {

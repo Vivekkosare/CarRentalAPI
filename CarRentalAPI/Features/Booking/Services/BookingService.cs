@@ -1,7 +1,8 @@
 ﻿using CarRentalAPI.Data;
-using CarRentalAPI.Extensions;
 using CarRentalAPI.Features.Booking.AggregateRoots;
+using CarRentalAPI.Features.Booking.Extensions;
 using CarRentalAPI.Features.Booking.ValueObjects;
+using CarRentalAPI.Shared.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;

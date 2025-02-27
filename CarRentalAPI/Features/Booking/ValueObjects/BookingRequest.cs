@@ -1,6 +1,6 @@
 ﻿namespace CarRentalAPI.Features.Booking.ValueObjects
 {
-    public class BookingRequest
+    public record BookingRequest
     {
         public Guid CustomerId { get; set; }
         public Guid CarId { get; set; }

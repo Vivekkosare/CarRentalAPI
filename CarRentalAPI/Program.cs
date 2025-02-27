@@ -1,7 +1,10 @@
 using CarRentalAPI.Data;
-using CarRentalAPI.Extensions;
+using CarRentalAPI.Features.Booking.Extensions;
 using CarRentalAPI.Features.Booking.Services;
+using CarRentalAPI.Features.PickUpReturnRegistration.Extensions;
+using CarRentalAPI.Features.PickUpReturnRegistration.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +21,7 @@ builder.Services.AddDbContext<CarDbContext>(options =>
 });
 
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 
 var app = builder.Build();
 
@@ -32,6 +36,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseEndpoints(static endpoints => endpoints.RouteBookingEndpoints());
 app.UseEndpoints(static endpoints => endpoints.RouteRegistrationEndpoints());
 
 app.Run();

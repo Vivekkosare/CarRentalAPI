@@ -17,7 +17,7 @@ Make sure you have PostgreSQL installed locally. You can download and install it
 
 ### 2. Set Up Database
 
-Once PostgreSQL is installed, create a new database for the API (e.g., `CarRental`).
+Once PostgreSQL is installed, create a new database for the API (e.g., `CarRental`) and update the connection string in the appsettings.json file.
 
 ### 3. Run Database Migrations
 

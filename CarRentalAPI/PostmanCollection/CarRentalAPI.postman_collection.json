@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "98cdda9f-f310-4afb-a575-e0a541fe50f7",
+		"name": "CarRentalAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "5723655"
+	},
+	"item": [
+		{
+			"name": "PickUpRegistration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"BookingId\": \"0195492d-8184-7d84-8b7c-0051331baabd\",\r\n    \"CustomerSSN\": \"123-45-6789\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7144/pickUpRegistration/"
+			},
+			"response": []
+		},
+		{
+			"name": "ReturnRegistration",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"BookingId\": \"0195492d-8184-7d84-8b7c-0051331baabd\",\r\n    \"CustomerSSN\": \"123-45-6789\",\r\n    \"ReturnMeterReading\": 600\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7144/returnRegistration/0195492d-8184-7d84-8b7c-0051331baabd"
+			},
+			"response": []
+		},
+		{
+			"name": "GetRegisteredPickUp",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:7144/pickUpReturnRegistration/0195492d-8184-7d84-8b7c-0051331baabd"
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooking",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:7144/booking/0195492d-8184-7d84-8b7c-0051331baabd"
+			},
+			"response": []
+		},
+		{
+			"name": "CreateBooking",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "// {\"text\": \"hello\"}\r\n{\r\n    \"CustomerId\": \"0941b04f-e282-40ca-9435-cd10a1a78b4f\",\r\n    \"CarId\": \"a4e0cd0a-c5d9-4f8a-98e1-fc7d0c7d4c6d\",\r\n    \"BookingDate\": \"2025-02-23T10:00:00Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7144/booking/"
+			},
+			"response": []
+		},
+		{
+			"name": "CalculateRentalPrice",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"BookingId\": \"01954bc2-5ed7-7f1a-85d3-f04e6a01b945\",\r\n    \"BaseDayRental\": 850,\r\n    \"BaseKmPrice\": 20\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7144/calculateRentalPrice/01954bc2-5ed7-7f1a-85d3-f04e6a01b945"
+			},
+			"response": []
+		}
+	]
+}

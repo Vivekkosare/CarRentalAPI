@@ -17,7 +17,7 @@ Make sure you have PostgreSQL installed locally. You can download and install it
 
 ### 2. Set Up Database
 
-Once PostgreSQL is installed, create a new database for the API (e.g., `carrentaldb`).
+Once PostgreSQL is installed, create a new database for the API (e.g., `CarRental`).
 
 ### 3. Run Database Migrations
 
@@ -60,4 +60,4 @@ After setting up the database, run the following commands in the terminal to app
 After running the migrations, you can verify that the tables were created successfully by connecting to your PostgreSQL database:
 
 ```bash
-psql -U postgres -d carrentaldb
+psql -U postgres -d CarRental

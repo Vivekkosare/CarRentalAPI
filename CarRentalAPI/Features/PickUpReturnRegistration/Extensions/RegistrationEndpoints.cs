@@ -39,25 +39,20 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Extensions
                     System.Net.HttpStatusCode.Created => Results.Created($"/pickUpReturnRegistration/{returnRegistered.Value.BookingId}", returnRegistered.Value),
                     System.Net.HttpStatusCode.NotFound => Results.NotFound(returnRegistered.Error),
                     System.Net.HttpStatusCode.BadRequest => Results.BadRequest(returnRegistered.Error),
+                    System.Net.HttpStatusCode.InternalServerError => Results.InternalServerError(returnRegistered.Error)
                 };
             });
 
-            builder.MapGet("/calculateRentalPrice/{id}", async ([FromServices] IRegistrationService registrationService, [FromBody] RentalRatesInput input) =>
+            builder.MapPost("/calculateRentalPrice/{id}", async ([FromServices] IRegistrationService registrationService, [FromBody] RentalRatesInput input) =>
             {
                 var pickUpRegistration = await registrationService.GetRentalRates(input);
                 return pickUpRegistration.StatusCode switch
                 {
-                    System.Net.HttpStatusCode.OK => Results.Ok(pickUpRegistration.Value),
+                    System.Net.HttpStatusCode.OK => Results.Ok(pickUpRegistration.Value), 
                     System.Net.HttpStatusCode.NotFound => Results.NotFound(pickUpRegistration.Error),
                     System.Net.HttpStatusCode.BadRequest => Results.BadRequest(pickUpRegistration.Error),
                 };
             });
-
-            //builder.MapDelete("/booking/{id}", async (IBookingService bookingService, Guid id) =>
-            //{
-            //    var deleted = await bookingService.DeleteBookingAsync(id);
-            //    return deleted ? Results.Ok(deleted) : Results.NoContent();
-            //});
 
             return builder;
         }

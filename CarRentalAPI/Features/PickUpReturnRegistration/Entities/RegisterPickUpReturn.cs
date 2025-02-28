@@ -1,8 +1,6 @@
-﻿using CarRentalAPI.Features.Booking.AggregateRoots;
-using CarRentalAPI.Features.Booking.ValueObjects;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace CarRentalAPI.Features.PickUpReturnRegistration.AggregateRoots
+namespace CarRentalAPI.Features.PickUpReturnRegistration.Entities
 {
     public class RegisterPickUpReturn
     {
@@ -16,6 +14,5 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.AggregateRoots
         public int? ReturnMeterReading { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public CarBooking Booking { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CarRentalAPI.Features.PickUpReturnRegistration.AggregateRoots;
+﻿using CarRentalAPI.Features.PickUpReturnRegistration.Entities;
 using CarRentalAPI.Features.PickUpReturnRegistration.ValueObjects;
 using CarRentalAPI.Shared.Entities;
 using System.Runtime.CompilerServices;
@@ -7,27 +7,28 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Extensions
 {
     public static class RegisterPickUpReturnExtensions
     {
-        public static RegisterPickUpReturn MapRegisterReturn(this RegisterPickUpReturn existingPickUpReturn)
+        public static RegisterPickUpReturn MapRegisterReturn(this BookingWithRegistration existingPickUpReturn)
         {
             RegisterPickUpReturn registerPickUpReturn = new();
-            registerPickUpReturn.PickUp = existingPickUpReturn.PickUp;
-            registerPickUpReturn.BookingId = existingPickUpReturn.BookingId;
-            registerPickUpReturn.RegistrationId = existingPickUpReturn.RegistrationId;
-            registerPickUpReturn.PickUpMeterReading = existingPickUpReturn.PickUpMeterReading;
-            registerPickUpReturn.ReturnMeterReading = existingPickUpReturn.ReturnMeterReading;
-            registerPickUpReturn.CreatedAt = existingPickUpReturn.CreatedAt;
+            registerPickUpReturn.PickUp = existingPickUpReturn.PickUp.Value;
+            registerPickUpReturn.BookingId = existingPickUpReturn.BookingId.Value;
+            registerPickUpReturn.RegistrationId = existingPickUpReturn.RegistrationId.Value;
+            registerPickUpReturn.PickUpMeterReading = existingPickUpReturn.PickUpMeterReading.Value;
+            registerPickUpReturn.CreatedAt = existingPickUpReturn.PickUp.Value;
+            registerPickUpReturn.CustomerSSN = existingPickUpReturn.CustomerSSN;
+            registerPickUpReturn.ReturnMeterReading = existingPickUpReturn.ReturnMeterReading?? existingPickUpReturn.ReturnMeterReading;
 
             registerPickUpReturn.Return = DateTime.UtcNow;
             registerPickUpReturn.UpdatedAt = DateTime.UtcNow;
             return registerPickUpReturn;
         }
 
-        public static decimal CalculateRentalPrice(this RegisterPickUpReturn registerPickUpReturn, decimal baseDayRental, decimal baseKmPrice)
+        public static decimal CalculateRentalPrice(this BookingWithRegistration registerPickUpReturn, decimal baseDayRental, decimal baseKmPrice, string carCategory)
         {
-            int numberOfDays = (registerPickUpReturn.Return.Value - registerPickUpReturn.PickUp).Days;
-            int numberOfKMs = (registerPickUpReturn.ReturnMeterReading.Value - registerPickUpReturn.PickUpMeterReading);
+            int numberOfDays = (registerPickUpReturn.Return.Value - registerPickUpReturn.PickUp.Value).Days;
+            int numberOfKMs = (registerPickUpReturn.ReturnMeterReading.Value - registerPickUpReturn.PickUpMeterReading.Value);
 
-            return registerPickUpReturn.Booking.Car.Category.Category.ToLower() switch
+            return carCategory.ToLower() switch
             {
                 "small" => baseDayRental * numberOfDays,
                 "medium" => (baseDayRental * numberOfDays * (decimal)1.3) + baseKmPrice * numberOfKMs,
@@ -42,7 +43,8 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Extensions
              new RegisterPickUpReturn
              {
                  BookingId = request.BookingId,
-                 CustomerSSN = request.CustomerSSN
+                 CustomerSSN = request.CustomerSSN,
+                 ReturnMeterReading = request.ReturnMeterReading
              };
     }
 }

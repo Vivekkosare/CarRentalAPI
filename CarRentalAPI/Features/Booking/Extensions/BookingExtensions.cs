@@ -1,4 +1,4 @@
-﻿using CarRentalAPI.Features.Booking.AggregateRoots;
+﻿using CarRentalAPI.Features.Booking.Entities;
 using System.Runtime.CompilerServices;
 
 namespace CarRentalAPI.Features.Booking.Extensions
@@ -10,8 +10,6 @@ namespace CarRentalAPI.Features.Booking.Extensions
             existingBooking.CarId = updatedBooking.CarId;
             existingBooking.Car = updatedBooking.Car;
             existingBooking.BookingDate = updatedBooking.BookingDate;
-            //existingBooking.PickUpDate = updatedBooking.PickUpDate ?? updatedBooking.PickUpDate;
-            //existingBooking.ReturnDate = updatedBooking.ReturnDate ?? updatedBooking.ReturnDate;
             return existingBooking;
         }
     }

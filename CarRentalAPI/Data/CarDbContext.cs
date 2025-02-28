@@ -1,6 +1,6 @@
-﻿using CarRentalAPI.Features.Booking.AggregateRoots;
+﻿using CarRentalAPI.Features.Booking.Entities;
 using CarRentalAPI.Features.Booking.ValueObjects;
-using CarRentalAPI.Features.PickUpReturnRegistration.AggregateRoots;
+using CarRentalAPI.Features.PickUpReturnRegistration.Entities;
 using CarRentalAPI.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +12,7 @@ namespace CarRentalAPI.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CarBooking> Bookings { get; set; }
         public DbSet<RegisterPickUpReturn> RegisterPickUpReturns { get; set; }
+        public DbSet<CarCategory> CarCategory { get; set; }
 
         public CarDbContext(DbContextOptions<CarDbContext> options) : base(options)
         {

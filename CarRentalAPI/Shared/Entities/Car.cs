@@ -9,6 +9,7 @@ namespace CarRentalAPI.Shared.Entities
         public string Name { get; set; }
         public Guid CategoryId { get; set; }
         public string RegistrationNumber { get; set; }
+        public int CurrentMeterReading { get; set; }
         public string Status { get; set; }
         public CarCategory Category { get; set; }
         public DateTime CreatedAt { get; set; }

@@ -51,6 +51,12 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Services
                 registerPickUp.CreatedAt = DateTime.UtcNow;
 
                 var pickUpRegistered = await _dbContext.RegisterPickUpReturns.AddAsync(registerPickUp);
+
+                //Update the car's status to Available
+                var car = await _dbContext.Cars.FindAsync(bookingByCustomer.CarId);
+                car.Status = BookingStatus.PickedUp.ToString();
+                _dbContext.Cars.Update(car);
+
                 await _dbContext.SaveChangesAsync();
                 return new Result<RegisterPickUpReturn> { Value = pickUpRegistered.Entity, StatusCode = HttpStatusCode.Created };
 

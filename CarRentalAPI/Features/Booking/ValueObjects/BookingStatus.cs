@@ -6,6 +6,6 @@
         Booked,
         Cancelled,
         PickedUp,
-        Returned
+        Returned,
     }
 }

@@ -3,6 +3,7 @@ using CarRentalAPI.Features.Booking.ValueObjects;
 using CarRentalAPI.Features.PickUpReturnRegistration.Entities;
 using CarRentalAPI.Features.PickUpReturnRegistration.Extensions;
 using CarRentalAPI.Features.PickUpReturnRegistration.ValueObjects;
+using CarRentalAPI.Shared.Entities;
 using CarRentalAPI.Shared.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -52,9 +53,20 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Services
 
                 var pickUpRegistered = await _dbContext.RegisterPickUpReturns.AddAsync(registerPickUp);
 
+                var pickedUp = BookingStatus.PickedUp.ToString();
+
+                //Add an entry in the booking history table with Status: Picked Up
+                var bookingHistory = new BookingHistory
+                {
+                    BookingId = registerPickUp.BookingId,
+                    Status = pickedUp,
+                    MeterReading = bookingByCustomer.Car.CurrentMeterReading
+                };
+                await _dbContext.BookingHistory.AddAsync(bookingHistory);
+
                 //Update the car's status to Available
                 var car = await _dbContext.Cars.FindAsync(bookingByCustomer.CarId);
-                car.Status = BookingStatus.PickedUp.ToString();
+                car.Status = pickedUp;
                 _dbContext.Cars.Update(car);
 
                 await _dbContext.SaveChangesAsync();
@@ -71,7 +83,7 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Services
         {
             if (bookingId == Guid.Empty)
                 return BadRequest<BookingWithRegistration>("Empty Booking Id");
-            
+
             var booking = await _dbContext.Bookings
                             .Where(b => b.BookingId == bookingId)
                             .Join(
@@ -142,13 +154,22 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Services
 
                 _dbContext.RegisterPickUpReturns.Update(registerReturn);
 
+                //Add an entry in the booking history table with Status: Returned
+                var bookingHistory = new BookingHistory
+                {
+                    BookingId = booking.Value.BookingId.Value,
+                    Status = BookingStatus.Returned.ToString(),
+                    MeterReading = registerReturn.ReturnMeterReading
+                };
+                await _dbContext.BookingHistory.AddAsync(bookingHistory);
+
                 //Update the car's status to Available
                 var car = await _dbContext.Cars.FindAsync(booking.Value.CarId);
                 car.Status = BookingStatus.Available.ToString();
                 car.CurrentMeterReading = registerReturn.ReturnMeterReading.Value;
                 _dbContext.Cars.Update(car);
 
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
 
                 _logger.LogInformation($"Vehile with regitration number {car.RegistrationNumber} has been returned " +
                     $"with bookingId: {booking.Value.BookingId} by customer: {booking.Value.CustomerSSN}");
@@ -210,6 +231,27 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Services
                 // Calculate and return rental price 
                 var rentalPrice = booking.Value.CalculateRentalPrice(ratesInput.BaseDayRental, ratesInput.BaseKmPrice, car.Category.Category);
 
+                //Update the rental price in RegisterPickUpReturn for this specific booking
+                var registerPickUpReturn = await _dbContext.RegisterPickUpReturns
+                                             .FirstOrDefaultAsync(rp => rp.BookingId == booking.Value.BookingId);
+                if(registerPickUpReturn is not null)
+                {
+                    registerPickUpReturn.RentalPrice = rentalPrice;
+                    registerPickUpReturn.UpdatedAt = DateTime.UtcNow;
+                }
+
+                //Add an entry in the booking history table with Status: Returned
+                var bookingHistory = new BookingHistory
+                {
+                    BookingId = booking.Value.BookingId.Value,
+                    Status = "Rental Price Calculated",
+                    MeterReading = booking.Value.ReturnMeterReading,
+                    RentalPriceCalculated = true
+                };
+                await _dbContext.BookingHistory.AddAsync(bookingHistory);
+
+                await _dbContext.SaveChangesAsync();
+
                 return new Result<decimal>
                 {
                     Value = rentalPrice
@@ -230,6 +272,41 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Services
         {
             _logger.LogWarning(errorMessage);
             return new() { StatusCode = HttpStatusCode.NotFound, Error = errorMessage };
+        }
+
+        public async Task<Result<BookingHistoryWithDetails>> GetBookingHistory(Guid bookingId)
+        {
+            try
+            {
+
+                if (bookingId == Guid.Empty)
+                    return BadRequest<BookingHistoryWithDetails>("Empty Booking Id");
+
+                var bookingHistory = await _dbContext.BookingHistory.Where(bh => bh.BookingId == bookingId).ToListAsync();
+
+                var details = await _dbContext.Bookings
+                                .Where(b => b.BookingId == bookingId)
+                                .Select(cb => new BookingHistoryWithDetails
+                                {
+                                    BookingId = cb.BookingId.Value,
+                                    CarName = cb.Car.Name,
+                                    RegistrationNumber = cb.Car.RegistrationNumber,
+                                    CarCategory = cb.Car.Category.Category,
+                                    Customer = cb.Customer,
+                                    CustomerId = cb.CustomerId,
+                                    BookingHistories = bookingHistory,
+
+                                }).FirstOrDefaultAsync();
+                if (details is null)
+                    return NotFound<BookingHistoryWithDetails>($"Booking not found with this booking id: {bookingId}");
+
+                return new Result<BookingHistoryWithDetails> { Value = details };
+            }
+            catch (Exception ex)
+            {
+                return new Result<BookingHistoryWithDetails> { Error = ex.Message, StatusCode = HttpStatusCode.InternalServerError };
+            }
+
         }
 
     }

@@ -14,5 +14,6 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Entities
         public int? ReturnMeterReading { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+        public decimal RentalPrice { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CarRentalAPI.Features.PickUpReturnRegistration.Services;
 using CarRentalAPI.Features.PickUpReturnRegistration.ValueObjects;
+using CarRentalAPI.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRentalAPI.Features.PickUpReturnRegistration.Extensions
@@ -17,6 +18,7 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Extensions
                     System.Net.HttpStatusCode.Created => Results.Created($"/pickUpReturnRegistration/{pickUpRegistered.Value.BookingId}", pickUpRegistered.Value),
                     System.Net.HttpStatusCode.NotFound => Results.NotFound(pickUpRegistered.Error),
                     System.Net.HttpStatusCode.BadRequest => Results.BadRequest(pickUpRegistered.Error),
+                    System.Net.HttpStatusCode.InternalServerError => Results.InternalServerError(pickUpRegistered.Error)
                 };
             });
 
@@ -28,6 +30,7 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Extensions
                     System.Net.HttpStatusCode.OK => Results.Ok(pickUpRegistration.Value),
                     System.Net.HttpStatusCode.NotFound => Results.NotFound(pickUpRegistration.Error),
                     System.Net.HttpStatusCode.BadRequest => Results.BadRequest(pickUpRegistration.Error),
+                    System.Net.HttpStatusCode.InternalServerError => Results.InternalServerError(pickUpRegistration.Error)
                 };
             });
 
@@ -51,6 +54,19 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Extensions
                     System.Net.HttpStatusCode.OK => Results.Ok(pickUpRegistration.Value), 
                     System.Net.HttpStatusCode.NotFound => Results.NotFound(pickUpRegistration.Error),
                     System.Net.HttpStatusCode.BadRequest => Results.BadRequest(pickUpRegistration.Error),
+                    System.Net.HttpStatusCode.InternalServerError => Results.InternalServerError(pickUpRegistration.Error)
+                };
+            });
+
+            builder.MapGet("/getBookingHistory/{bookingId}", async ([FromServices] IRegistrationService registrationService, Guid bookingId) =>
+            {
+                var bookingHistory = await registrationService.GetBookingHistory(bookingId);
+                return bookingHistory.StatusCode switch
+                {
+                    System.Net.HttpStatusCode.OK => Results.Ok(bookingHistory.Value),
+                    System.Net.HttpStatusCode.NotFound => Results.NotFound(bookingHistory.Error),
+                    System.Net.HttpStatusCode.BadRequest => Results.BadRequest(bookingHistory.Error),
+                    System.Net.HttpStatusCode.InternalServerError => Results.InternalServerError(bookingHistory.Error)
                 };
             });
 

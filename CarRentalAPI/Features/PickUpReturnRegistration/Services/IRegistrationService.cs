@@ -11,5 +11,6 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Services
         Task<Result<RegisterPickUpReturn>> RegisterReturn(RegisterPickUpReturn registerReturn);
         Task<Result<BookingWithRegistration>> GetRegisteredPickUp(Guid bookingId);
         Task<Result<decimal>> GetRentalRates(RentalRatesInput ratesInput);
+        Task<Result<BookingHistoryWithDetails>> GetBookingHistory(Guid bookingId);
     }
 }

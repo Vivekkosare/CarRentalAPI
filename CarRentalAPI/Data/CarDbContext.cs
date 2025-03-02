@@ -13,6 +13,7 @@ namespace CarRentalAPI.Data
         public DbSet<CarBooking> Bookings { get; set; }
         public DbSet<RegisterPickUpReturn> RegisterPickUpReturns { get; set; }
         public DbSet<CarCategory> CarCategory { get; set; }
+        public DbSet<BookingHistory> BookingHistory { get; set; }
 
         public CarDbContext(DbContextOptions<CarDbContext> options) : base(options)
         {
@@ -48,6 +49,13 @@ namespace CarRentalAPI.Data
             modelBuilder.Entity<RegisterPickUpReturn>()
                .Property(c => c.CreatedAt)
                .HasDefaultValueSql("TIMEZONE('UTC', NOW())");
+
+            modelBuilder.Entity<BookingHistory>()
+                .HasKey(h => h.Id);
+
+            modelBuilder.Entity<BookingHistory>()
+                .Property(h => h.StatusChangedAt)
+                .HasDefaultValueSql("TIMEZONE('UTC', NOW())");
 
 
             #region Seed Categories

@@ -2,6 +2,7 @@
 using CarRentalAPI.Features.Booking.Entities;
 using CarRentalAPI.Features.Booking.Extensions;
 using CarRentalAPI.Features.Booking.ValueObjects;
+using CarRentalAPI.Shared.Entities;
 using CarRentalAPI.Shared.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -52,8 +53,17 @@ namespace CarRentalAPI.Features.Booking.Services
                     return ReturnError<CarBooking>("Booking already exists", HttpStatusCode.BadRequest);
                 }
                 var bookingCreated = await _dbContext.Bookings.AddAsync(booking);
+                var bookingStatus = BookingStatus.Booked.ToString();
+                
+                //Add an entry in the booking history table with Status: Booked
+                var bookingHistory = new BookingHistory
+                {
+                    BookingId = bookingCreated.Entity.BookingId.Value,
+                    Status = bookingStatus
+                };
+                await _dbContext.BookingHistory.AddAsync(bookingHistory);
 
-                car.Status = BookingStatus.Booked.ToString();
+                car.Status = bookingStatus;
                 _dbContext.Cars.Update(car);
 
                 await SaveChangesAsync();
@@ -95,7 +105,12 @@ namespace CarRentalAPI.Features.Booking.Services
 
         public async Task<Result<CarBooking>> GetBookingAsync(Guid id)
         {
-            var booking = await _dbContext.Bookings.FindAsync(id);
+            var booking = await _dbContext.Bookings
+                            .Include(b => b.Car)
+                            .Include(b=> b.Car.Category)
+                            .Include(b => b.Customer).FirstOrDefaultAsync(b => b.BookingId == id);
+            booking.Car.Status = null;
+
             if (booking is null)
             {
                 return ReturnError<CarBooking>("Booking not found", HttpStatusCode.NotFound);

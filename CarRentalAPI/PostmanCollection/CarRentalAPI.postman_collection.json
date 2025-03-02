@@ -2,73 +2,10 @@
 	"info": {
 		"_postman_id": "98cdda9f-f310-4afb-a575-e0a541fe50f7",
 		"name": "CarRentalAPI",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "5723655"
 	},
 	"item": [
-		{
-			"name": "PickUpRegistration",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"BookingId\": \"0195492d-8184-7d84-8b7c-0051331baabd\",\r\n    \"CustomerSSN\": \"123-45-6789\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "https://localhost:7144/pickUpRegistration/"
-			},
-			"response": []
-		},
-		{
-			"name": "ReturnRegistration",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"BookingId\": \"0195492d-8184-7d84-8b7c-0051331baabd\",\r\n    \"CustomerSSN\": \"123-45-6789\",\r\n    \"ReturnMeterReading\": 600\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "https://localhost:7144/returnRegistration/0195492d-8184-7d84-8b7c-0051331baabd"
-			},
-			"response": []
-		},
-		{
-			"name": "GetRegisteredPickUp",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": "https://localhost:7144/pickUpReturnRegistration/0195492d-8184-7d84-8b7c-0051331baabd"
-			},
-			"response": []
-		},
-		{
-			"name": "GetBooking",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": "https://localhost:7144/booking/0195492d-8184-7d84-8b7c-0051331baabd"
-			},
-			"response": []
-		},
 		{
 			"name": "CreateBooking",
 			"request": {
@@ -92,7 +29,125 @@
 						}
 					}
 				},
-				"url": "https://localhost:7144/booking/"
+				"url": {
+					"raw": "https://localhost:7144/booking/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7144",
+					"path": [
+						"booking",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooking",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7144/booking/0195492d-8184-7d84-8b7c-0051331baabd",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7144",
+					"path": [
+						"booking",
+						"0195492d-8184-7d84-8b7c-0051331baabd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PickUpRegistration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"BookingId\": \"0195492d-8184-7d84-8b7c-0051331baabd\",\r\n    \"CustomerSSN\": \"123-45-6789\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7144/pickUpRegistration/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7144",
+					"path": [
+						"pickUpRegistration",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRegisteredPickUp",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7144/pickUpReturnRegistration/0195492d-8184-7d84-8b7c-0051331baabd",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7144",
+					"path": [
+						"pickUpReturnRegistration",
+						"0195492d-8184-7d84-8b7c-0051331baabd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReturnRegistration",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"BookingId\": \"0195492d-8184-7d84-8b7c-0051331baabd\",\r\n    \"CustomerSSN\": \"123-45-6789\",\r\n    \"ReturnMeterReading\": 600\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7144/returnRegistration/0195492d-8184-7d84-8b7c-0051331baabd",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7144",
+					"path": [
+						"returnRegistration",
+						"0195492d-8184-7d84-8b7c-0051331baabd"
+					]
+				}
 			},
 			"response": []
 		},
@@ -116,7 +171,41 @@
 						}
 					}
 				},
-				"url": "https://localhost:7144/calculateRentalPrice/01954bc2-5ed7-7f1a-85d3-f04e6a01b945"
+				"url": {
+					"raw": "https://localhost:7144/calculateRentalPrice/01954bc2-5ed7-7f1a-85d3-f04e6a01b945",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7144",
+					"path": [
+						"calculateRentalPrice",
+						"01954bc2-5ed7-7f1a-85d3-f04e6a01b945"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBookingHistory",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7144/getBookingHistory/0195492d-8184-7d84-8b7c-0051331baabd",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7144",
+					"path": [
+						"getBookingHistory",
+						"0195492d-8184-7d84-8b7c-0051331baabd"
+					]
+				}
 			},
 			"response": []
 		}

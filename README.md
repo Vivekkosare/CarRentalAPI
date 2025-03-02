@@ -55,6 +55,38 @@ After setting up the database, run the following commands in the terminal to app
     dotnet ef database update
     ```
 
+3. **Add UpdateCurrentMeterReadingOfCarToDefaultValue Migration**
+
+    Here we update `CurrentMeterReading` value of the `Car` table, run:
+
+    ```bash
+    dotnet ef migrations add UpdateCurrentMeterReadingOfCarToDefaultValue
+    ```
+
+4. **Update Database Again**
+
+    Apply this new migration to the database:
+
+    ```bash
+    dotnet ef database update
+    ```
+
+3. **Add BookingHistoryTable Migration**
+
+    We add a new table to the database names `BookingHistoryTable` table, for that..run:
+
+    ```bash
+    dotnet ef migrations add BookingHistoryTable
+    ```
+
+4. **Update Database Again**
+
+    Apply this new migration to the database:
+
+    ```bash
+    dotnet ef database update
+    ```
+
 ### 4. Verify Database and Tables
 
 After running the migrations, you can verify that the tables were created successfully by connecting to your PostgreSQL database:

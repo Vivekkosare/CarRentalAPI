@@ -246,6 +246,7 @@ namespace CarRentalAPI.Features.PickUpReturnRegistration.Services
                     BookingId = booking.Value.BookingId.Value,
                     Status = "Rental Price Calculated",
                     MeterReading = booking.Value.ReturnMeterReading,
+                    RentalPrice = rentalPrice,
                     RentalPriceCalculated = true
                 };
                 await _dbContext.BookingHistory.AddAsync(bookingHistory);

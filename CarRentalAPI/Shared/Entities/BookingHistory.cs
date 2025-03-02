@@ -8,6 +8,7 @@
         public DateTime StatusChangedAt { get; set; }
         public int? MeterReading { get; set; }
         public bool RentalPriceCalculated { get; set; } = false;
+        public decimal RentalPrice { get; set; }
 
     }
 }

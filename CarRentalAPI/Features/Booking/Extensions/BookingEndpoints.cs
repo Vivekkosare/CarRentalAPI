@@ -17,6 +17,7 @@ namespace CarRentalAPI.Features.Booking.Extensions
                     System.Net.HttpStatusCode.Created => Results.Created($"/booking/{bookingCreated.Value.BookingId}", bookingCreated.Value),
                     System.Net.HttpStatusCode.NotFound => Results.NotFound(bookingCreated.Error),
                     System.Net.HttpStatusCode.BadRequest => Results.BadRequest(bookingCreated.Error),
+                    System.Net.HttpStatusCode.InternalServerError => Results.InternalServerError(bookingCreated.Error)
                 };
             });
 
@@ -28,6 +29,7 @@ namespace CarRentalAPI.Features.Booking.Extensions
                     System.Net.HttpStatusCode.OK => Results.Ok(booking.Value),
                     System.Net.HttpStatusCode.NotFound => Results.NotFound(booking.Error),
                     System.Net.HttpStatusCode.BadRequest => Results.BadRequest(booking.Error),
+                    System.Net.HttpStatusCode.InternalServerError => Results.InternalServerError(booking.Error)
                 };
             });
 

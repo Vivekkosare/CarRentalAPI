@@ -23,65 +23,9 @@ Once PostgreSQL is installed, create a new database for the API (e.g., `CarRenta
 
 After setting up the database, run the following commands in the terminal to apply migrations:
 
-1. **Add Initial Migration**
+1. **To apply all migrations**
 
-    Run the following command to create the initial migration:
-
-    ```bash
-    dotnet ef migrations add InitialCreate
-    ```
-
-2. **Update Database**
-
-    Apply the migration to your database:
-
-    ```bash
-    dotnet ef database update
-    ```
-
-3. **Add Additional Migration**
-
-    If you have further schema changes (e.g., adding a new column), you can add additional migrations. For example, to add `CurrentMeterReading` to the `Car` table, run:
-
-    ```bash
-    dotnet ef migrations add AddCurrentMeterReadingToCar
-    ```
-
-4. **Update Database Again**
-
-    Apply this new migration to the database:
-
-    ```bash
-    dotnet ef database update
-    ```
-
-3. **Add UpdateCurrentMeterReadingOfCarToDefaultValue Migration**
-
-    Here we update `CurrentMeterReading` value of the `Car` table, run:
-
-    ```bash
-    dotnet ef migrations add UpdateCurrentMeterReadingOfCarToDefaultValue
-    ```
-
-4. **Update Database Again**
-
-    Apply this new migration to the database:
-
-    ```bash
-    dotnet ef database update
-    ```
-
-3. **Add BookingHistoryTable Migration**
-
-    We add a new table to the database names `BookingHistoryTable` table, for that..run:
-
-    ```bash
-    dotnet ef migrations add BookingHistoryTable
-    ```
-
-4. **Update Database Again**
-
-    Apply this new migration to the database:
+    Run the following command to apply the database migrations:
 
     ```bash
     dotnet ef database update
